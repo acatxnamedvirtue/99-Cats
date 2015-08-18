@@ -7,30 +7,37 @@
 <form action="<%= action_url %>" method="POST">
   <input type="hidden" name="_method" value="<%= form_method %>">
 
-  <label for="birthdate"> Birthdate: </label>
-  <input id="birthdate" type="date" name="cat[birthdate]" value="<%= @cat.birthdate %>">
+  <label for="birthdate">Birthdate:</label>
+  <input id="birthdate"
+         type="date"
+         name="cat[birthdate]"
+         value="<%= @cat.birthdate %>">
   <br>
 
-  <label for="name"> Name: </label>
-  <input id="name" type="string" name="cat[name]" value="<%= @cat.name %>">
+  <label for="name">Name:</label>
+  <input id="name"
+         type="string"
+         name="cat[name]"
+         value="<%= @cat.name %>">
   <br>
 
-  <label for="color"> Color: </label>
+  <label for="color">Color:</label>
   <select id="color" name="cat[color]">
-    <option selected></option>
-    <option value='black'  <%= "selected" if @cat.color == "black" %> >Black</option>
-    <option value='white' <%= "selected" if @cat.color == "white" %> >White</option>
-    <option value='brown' <%= "selected" if @cat.color == "brown" %> >Brown</option>
-    <option value='orange' <%= "selected" if @cat.color == "orange" %> >Orange</option>
+    <option selected disabled>Select a Color!</option>
+    <% ["black", "white", "brown", "orange"].each do |color| %>
+        <option value="<%= color%>" <%= "selected" if @cat.color == color %> ><%= color.capitalize%></option>
+    <% end %>
   </select>
   <br>
 
-  <label for="sex"> Sex: </label>
-  <input id="sex" type="radio" name="cat[sex]" value="F" <%="checked" if @cat.sex == "F" %>>Female
-  <input id="sex" type="radio" name="cat[sex]" value="M" <%="checked" if @cat.sex == "M" %>>Male
+  <label for="sex">Sex:</label>
+  <label for="male">Male</label>
+  <input id="male" type="radio" name="cat[sex]" value="F" <%="checked" if @cat.sex == "F" %>>
+  <label for="female">Female</label>
+  <input id="female" type="radio" name="cat[sex]" value="M" <%="checked" if @cat.sex == "M" %>>
   <br>
 
-  <label for="description"> About Cat: </label>
+  <label for="description">About Cat:</label>
   <textarea
     id="description"
     name="cat[description]"><%= @cat.description %></textarea>

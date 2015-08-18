@@ -14,3 +14,27 @@
     <td>About me: <%= @cat.description %></td>
   </tr>
 </table>
+
+
+<h2> Rental Requests </h2>
+<%= "NO REQUESTS" if @requests.empty? %>
+<table>
+  <% @requests.each do |request| %>
+    <tr>
+      <td>Start Date: <%= request.start_date %></td>
+      <td>End Date: <%= request.end_date %></td>
+      <td>Status: <%= request.status %></td>
+      <td> <% if request.pending? %>
+                <form action="<%= cat_rental_request_approve_url(request.id)%>" method="post">
+                  <button>Approve</button>
+                </form>
+                <form action="<%= cat_rental_request_deny_url(request.id)%>" method="post">
+                  <button>Deny</button>
+                </form>
+           <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<a href="<%= cats_url%>">Return to all cats</a>

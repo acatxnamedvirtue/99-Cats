@@ -3,7 +3,7 @@
 <ul>
   <% @cats.each do |cat| %>
     <li>
-      <%= cat.name %>
+      <a href="<%= cat_url(cat)%>"><%= cat.name %></a>
     </li>
   <% end %>
 
