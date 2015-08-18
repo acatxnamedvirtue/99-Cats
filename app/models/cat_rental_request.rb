@@ -47,7 +47,7 @@ class CatRentalRequest < ActiveRecord::Base
   end
 
   def no_overlapping_approved_requests
-    if status != "DENIED" && !overlapping_approved_requests.empty?
+    unless overlapping_approved_requests.empty?
       errors.add(:date_range, "cannot overlapping existing approved requests")
     end
   end
