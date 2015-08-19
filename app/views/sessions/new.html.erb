@@ -1,0 +1,17 @@
+<h1>Account Sign In</h1>
+
+<form action="<%= session_url %>" method="POST">
+  <%= insert_authenticity_token %>
+  <label for="user_name">User Name:</label>
+  <input id="user_name"
+         type="string"
+         value="<%= @user.user_name %>"
+         name=user[user_name]>
+
+  <label for="password">Password:</label>
+  <input id="password"
+         type="password"
+         value="<%= @user.password %>"
+         name="user[password]">
+  <button>SIGN IN</button>
+</form>

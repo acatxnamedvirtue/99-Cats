@@ -1,10 +1,9 @@
-<!-- <h1> <%= @cat.persisted? ? "Edit #{@cat.name}" : "Create a new cat" %>-->
-
 <% action_url = @cat.persisted? ? cat_url(@cat) : cats_url %>
 <% form_method = @cat.persisted? ? "PATCH" : "POST" %>
 
 
 <form action="<%= action_url %>" method="POST">
+  <%= insert_authenticity_token %>
   <input type="hidden" name="_method" value="<%= form_method %>">
 
   <label for="birthdate">Birthdate:</label>
@@ -24,7 +23,7 @@
   <label for="color">Color:</label>
   <select id="color" name="cat[color]">
     <option selected disabled>Select a Color!</option>
-    <% ["black", "white", "brown", "orange"].each do |color| %>
+    <% Cat::COLORS.each do |color| %>
         <option value="<%= color%>" <%= "selected" if @cat.color == color %> ><%= color.capitalize%></option>
     <% end %>
   </select>

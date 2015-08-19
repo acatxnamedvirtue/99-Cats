@@ -1,6 +1,6 @@
 require 'byebug'
 class CatRentalRequest < ActiveRecord::Base
-  validates :cat_id, :start_date, :end_date, presence: true
+  validates :cat_id, :start_date, :end_date, :user_id, presence: true
   validate :no_overlapping_approved_requests
   after_initialize :set_status
   validates :status, inclusion: { in: %w(PENDING DENIED APPROVED),
@@ -10,6 +10,11 @@ class CatRentalRequest < ActiveRecord::Base
   belongs_to :cat,
     class_name: 'Cat',
     foreign_key: :cat_id,
+    primary_key: :id
+
+  belongs_to :requester,
+    class_name: 'User',
+    foreign_key: :user_id,
     primary_key: :id
 
   def pending?
@@ -30,7 +35,7 @@ class CatRentalRequest < ActiveRecord::Base
     update!(status: "DENIED")
   end
 
-  # private
+  private
   def overlapping_requests
     CatRentalRequest
       .where("cat_id = ?", cat_id)

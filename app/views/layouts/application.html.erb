@@ -7,7 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <%= "Hello, #{current_user.user_name}" if current_user %>
+  <%= link_to("Sign In", new_session_url) if !current_user %>
+  <%= link_to("Sign Up", new_user_url) if !current_user %>
+  <%= link_to("Sign Out", session_url, method: "DELETE") if current_user %>
+  <%= link_to("Sign Out from other locations", signins_url) if current_user %>
 <%= yield %>
 
 </body>

@@ -13,6 +13,9 @@
   <tr>
     <td>About me: <%= @cat.description %></td>
   </tr>
+  <tr>
+    <td>Owner: <%= @owner.user_name %></td>
+  </tr>
 </table>
 
 
@@ -24,11 +27,14 @@
       <td>Start Date: <%= request.start_date %></td>
       <td>End Date: <%= request.end_date %></td>
       <td>Status: <%= request.status %></td>
-      <td> <% if request.pending? %>
-                <form action="<%= cat_rental_request_approve_url(request.id)%>" method="post">
+      <td>Requester: <%= request.requester.user_name %></td>
+      <td> <% if request.pending? && current_user == @owner %>
+                <form action="<%= approve_cat_rental_request_url(request.id)%>" method="post">
+                  <%= insert_authenticity_token %>
                   <button>Approve</button>
                 </form>
-                <form action="<%= cat_rental_request_deny_url(request.id)%>" method="post">
+                <form action="<%= deny_cat_rental_request_url(request.id)%>" method="post">
+                  <%= insert_authenticity_token %>
                   <button>Deny</button>
                 </form>
            <% end %>

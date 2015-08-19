@@ -1,0 +1,6 @@
+<h1>Other Sign Ins</h1>
+
+<% @signouts.each do |session|%>
+  <%= session.browser %> <%= link_to("Sign Out", other_signout_url, method: "DELETE") if current_user %>
+  <br>
+<% end %>
